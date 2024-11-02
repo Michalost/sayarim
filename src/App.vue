@@ -1,26 +1,35 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <opening-screen v-if="scene === 'opening'" @to-exposition="toExposition"></opening-screen>
+    <exposition-scene v-if="scene === 'exposition'" @to-sceneone="toSceneOne"></exposition-scene>
+    <first-scene v-if="scene === 'first'" @to-second="toSecond"></first-scene>
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+import expositionScene from './components/opening/expositionScene.vue';
+import openingScreen from './components/opening/openingScreen.vue';
+import firstScene from './components/firstScene.vue';
+export default{
+  components: { openingScreen , expositionScene , firstScene},
+  data(){
+    return{
+      scene: 'opening', 
+    }
+  },
+  methods:{
+    toExposition(){
+      this.scene = 'exposition';
+    },
+    toSceneOne(){
+      this.scene = 'first';
+    }
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  overflow: hidden;
 }
 </style>
